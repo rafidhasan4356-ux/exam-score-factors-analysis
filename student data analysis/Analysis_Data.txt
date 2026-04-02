@@ -1,0 +1,187 @@
+1.  Hours_Studied - min: 1.1,max: 44.0
+    Attendance - min: 60.0,max: 100.0
+    Sleep_Hours - min: 4.0,max: 10.0
+    Previous_Scores - min: 50.0,max: 100.0
+    Tutoring_Sessions - min: 0,max: 8
+    Final_Exam_Score - min: 29.7,max: 95.2
+
+2.  Parental_Involvement: <StringArray>
+    ['Low', 'Medium', 'High']
+    Length: 3, dtype: str
+    Access_to_Resources: <StringArray>
+    ['Low', 'High', 'Medium']
+    Length: 3, dtype: str
+    Extracurricular_Activities: <StringArray>
+    ['Yes', 'No']
+    Length: 2, dtype: str
+    Motivation_Level: <StringArray>
+    ['Medium', 'Low', 'High']
+    Length: 3, dtype: str
+    Internet_Access: <StringArray>
+    ['Yes', 'No']
+    Length: 2, dtype: str
+
+3.  Study Hours greater than 30
+          Hours_Studied  Attendance Parental_Involvement Access_to_Resources  Motivation_Level  Internet_Access  Tutoring_Sessions Final_Exam_Score
+    31             31.6        70.1               Medium                 Low            Medium              Yes                  3             77.1
+    106            31.8        99.8               Medium                High            Medium               No                  2             74.1
+    113            35.3        98.9                 High              Medium            Medium              Yes                  1             69.8
+    125            33.6        70.1               Medium                 Low            Medium              Yes                  0             71.9
+    156            31.7        92.1               Medium                High            Medium              Yes                  0             79.5
+    ...             ...         ...                  ...                 ...               ...              ...                ...              ...
+    6485           35.5        84.3                  Low              Medium            Medium              Yes                  2             77.5
+    6516           30.7        78.1               Medium              Medium            Medium              Yes                  0             56.1
+    6572           33.4        95.1                 High                High            Medium              Yes                  3             70.0
+    6584           30.1        61.7               Medium              Medium               Low              Yes                  2             57.3
+    6599           30.9        94.2                 High                High            Medium              Yes                  4             75.5
+
+    [369 rows x 11 columns]
+
+4.  Students with Hours_Studied > 30 :
+        Extracurricular_Activities  Sleep_Hours  Previous_Scores
+    0                          Yes          9.4             98.3
+    1                          Yes          8.2             57.9
+    2                           No          6.9             60.0
+    3                          Yes          7.4             90.2
+    4                          Yes          4.1             89.4
+    ..                         ...          ...              ...
+    364                        Yes          8.5             78.6
+    365                        Yes          9.5             52.0
+    366                        Yes          6.8             62.5
+    367                        Yes          7.1             79.9
+    368                        Yes          7.3             83.3
+
+    [369 rows x 3 columns]
+
+5.  Students Whom study hour is greater than 39 hours
+          Hours_Studied  Attendance Parental_Involvement Access_to_Resources  Motivation_Level  Internet_Access  Tutoring_Sessions Final_Exam_Score
+              43.6        86.2                 High                 Low               Low              Yes                  3             65.4
+              39.7        94.6               Medium              Medium              High              Yes                  0             69.4
+              39.3        97.1                 High                High            Medium              Yes                  2             68.1
+              39.2        92.4                  Low                High            Medium              Yes                  1             83.0
+              44.0        68.0                 High              Medium            Medium              Yes                  1             67.3
+              40.0        90.4                 High                 Low              High              Yes                  3             80.2
+              39.4        74.8                  Low                 Low               Low              Yes                  5             70.0
+              39.2        67.4                 High              Medium            Medium              Yes                  3             63.1
+              39.1        78.4               Medium                High               Low              Yes                  2             66.3
+
+    [9 rows x 11 columns]
+
+6.  Students With Hours_Studied >39 :
+      Extracurricular_Activities  Sleep_Hours  Previous_Scores
+                            No          5.7             65.1
+                            Yes          8.5             59.7
+                            No          7.7             56.1
+                            Yes          4.5             94.5
+                            No          5.2             68.4
+                            No          8.7             75.7
+                            Yes          7.2             76.5
+                            No          8.4             62.0
+                            Yes          7.2             80.3
+
+    [9 rows x 11 columns]
+
+
+7.  columns: 
+ 
+      cid                        name     type  notnull dflt_value  pk
+    0     0               Hours_Studied     REAL        0       None   0
+    1     1                  Attendance     REAL        0       None   0
+    2     2        Parental_Involvement     TEXT        0       None   0
+    3     3         Access_to_Resources     TEXT        0       None   0
+    4     4  Extracurricular_Activities     TEXT        0       None   0
+    5     5                 Sleep_Hours     REAL        0       None   0
+    6     6             Previous_Scores     REAL        0       None   0
+    7     7            Motivation_Level     TEXT        0       None   0
+    8     8             Internet_Access     TEXT        0       None   0
+    9     9           Tutoring_Sessions  INTEGER        0       None   0
+    10   10            Final_Exam_Score     REAL        0       None   0
+
+
+8.  Sample Data:
+
+      Hours_Studied  Attendance Parental_Involvement Access_to_Resources Extracurricular_Activities  Sleep_Hours   Previous_Scores  Motivation_Level Internet_Access Tutoring_Sessions  Final_Exam_Score
+    0           23.5        84.2                  Low                 Low                        Yes      7.4         50.3            Medium             Yes                 1          54.3    
+    54.3
+    1           19.7        63.6               Medium                High                        Yes      6.7         83.1               Low             Yes                 2          59.4  
+    59.4
+    2           24.4        98.4               Medium              Medium                        Yes      8.0         63.5            Medium             Yes                 0          63.8     
+    63.8
+    3           29.6        88.6               Medium                High                        Yes      6.3         57.5            Medium             Yes                 2          61.0    
+    61.0
+    4           19.1        91.5                 High              Medium                        Yes      6.2         66.0            Medium             Yes                 2          60.7     
+    60.7
+
+    [5 rows x 11 columns]
+
+9.  Performance_level
+    Medium    3381 --> Mark >= 60
+    Low       3160 --> Mark <60
+    High        66 --> Mark >=80
+    Name: count, dtype: int64
+      Final_Exam_Score Performance_level
+    0              54.3               Low
+    1              59.4               Low
+    2              63.8            Medium
+    3              61.0            Medium
+    4              60.7            Medium
+
+      Performance_level  AVG(Hours_Studied)  AVG(Sleep_Hours)
+    0              High           27.260606          7.028788
+    1               Low           18.492943          7.180854
+    2            Medium           22.190594          7.192458
+
+10.  Correlation with Final Exam Score:
+      Final_Exam_Score     1.000000
+      Previous_Scores      0.653388
+      Hours_Studied        0.409850
+      Attendance           0.266152
+      Tutoring_Sessions    0.207310
+      Sleep_Hours         -0.012736
+      Name: Final_Exam_Score, dtype: float64
+
+11.    Parental_Involvement  avg_score
+    0                  Low  60.499372
+    1               Medium  60.449747
+    2                 High  60.251728
+
+12.  Tutoring Session related correlation.....
+                        Tutoring_Sessions  Final_Exam_Score
+      Tutoring_Sessions            1.00000           0.20731
+      Final_Exam_Score             0.20731           1.00000
+
+      Comparing Tutoring Group with Final Exam Score.......
+                      count       mean       std   min     25%   50%     75%   max
+      tutoring_group
+      0-2 sessions    5375.0  59.657953  8.632391  29.7  53.600  59.6  65.700  87.0
+      3+ sessions     1232.0  63.639205  8.464588  39.3  57.875  63.9  69.425  95.2
+
+13.    Access_to_Resources  avg_score  count
+      0                High  62.258110   1979
+      1              Medium  60.103016   3349
+      2                 Low  58.304300   1279
+
+14.     Access_to_Resources Motivation_Level  avg_score
+      0                High             High  65.410448
+      1                High           Medium  62.614782
+      2                High              Low  59.399121
+      3                 Low             High  61.642857
+      4                 Low           Medium  58.217444
+      5                 Low              Low  56.031268
+      6              Medium             High  63.942667
+      7              Medium           Medium  60.330940
+      8              Medium              Low  56.999792
+
+15.  Extracurricular Activities wise final exam marks :
+                                      mean       std    count
+    Extracurricular_Activities
+    No                             60.081787  8.581082   2619
+    Yes                            60.609529  8.836653   3988
+
+16.  Internet Access wise final exam marks:
+                        mean       std  count
+    Internet_Access
+    No               60.288911  8.622549    514
+    Yes              60.409732  8.749820   6093
+
+17.Correlation between Previous score and Final Exam Score: 0.653

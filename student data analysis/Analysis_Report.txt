@@ -1,0 +1,183 @@
+Analysis Report: What Affects Exam Scores?
+
+1. Dataset Overview
+
+The dataset contains 6,607 student records with 11 columns (5 categorical, 6 numerical). The target variable is Final_Exam_Score (range: 29.7 – 95.2).
+
+Numerical features (range):
+- Hours_Studied: 1.1 – 44.0 (likely hours per week)
+- Attendance: 60.0 – 100.0 (%)
+- Sleep_Hours: 4.0 – 10.0 (hours per day)
+- Previous_Scores: 50.0 – 100.0
+- Tutoring_Sessions: 0 – 8 (count)
+
+Categorical features (unique values):
+- Parental_Involvement: Low, Medium, High
+- Access_to_Resources: Low, Medium, High
+- Extracurricular_Activities: Yes, No
+- Motivation_Level: Low, Medium, High
+- Internet_Access: Yes, No
+
+
+2. Data Cleaning & Outlier Check
+
+- No missing values found.
+- Hours_Studied max = 44.0. Investigated students with >39 hours (9 rows). Their exam scores range from 63.1 to 83.0 – not exceptionally high, but plausible when other factors (e.g., low motivation, low resources) are considered. No removal performed because the data is realistic.
+
+
+3. Performance Level Classification (using np.where())
+
+Performance level based on Final_Exam_Score:
+
+| Performance Level | Score Range | Count   |
+|------------------|-------------|---------|
+| High             | >= 80       | 66      |
+| Medium           | 60 – 79     | 3,381   |
+| Low              | < 60        | 3,160   |
+
+Observation: Very few students achieve "High" performance (only 1% of the dataset). Most students are in the Medium/Low range.
+
+Average study hours and sleep hours by performance level:
+
+| Performance Level | Avg Hours Studied | Avg Sleep Hours |
+|------------------|-------------------|-----------------|
+| High             | 27.26             | 7.03            |
+| Medium           | 22.19             | 7.19            |
+| Low              | 18.49             | 7.18            |
+
+Key finding: High‑performing students study ~5 hours more per week than medium performers, and ~9 hours more than low performers. Sleep hours are similar across groups.
+
+
+4. Correlation Analysis (Numerical Factors)
+
+Correlation with Final_Exam_Score (sorted):
+
+| Feature            | Correlation |
+|--------------------|-------------|
+| Final_Exam_Score   | 1.000       |
+| Previous_Scores    | 0.653       |
+| Hours_Studied      | 0.410       |
+| Attendance         | 0.266       |
+| Tutoring_Sessions  | 0.207       |
+| Sleep_Hours        | -0.013      |
+
+Interpretation:
+- Previous_Scores has the strongest positive relationship – students who did well before tend to do well on the final exam.
+- Hours_Studied also shows a moderate positive correlation: more study hours → higher scores.
+- Attendance and Tutoring_Sessions have weaker but positive effects.
+- Sleep_Hours shows almost no linear correlation (slightly negative but negligible).
+
+
+5. Group Comparisons (Categorical Factors)
+
+5.1 Parental Involvement
+
+| Parental Involvement | Avg Exam Score |
+|----------------------|----------------|
+| Low                  | 60.50          |
+| Medium               | 60.45          |
+| High                 | 60.25          |
+
+Finding: Virtually no difference. Parental involvement (as measured) does not affect exam scores in this dataset.
+
+5.2 Access to Resources
+
+| Access to Resources | Avg Exam Score | Count |
+|---------------------|----------------|-------|
+| High                | 62.26          | 1,979 |
+| Medium              | 60.10          | 3,349 |
+| Low                 | 58.30          | 1,279 |
+
+Finding: Students with high resource access score ~4 points higher than those with low access. This factor matters.
+
+5.3 Extracurricular Activities
+
+| Extracurricular Activities | Avg Exam Score |
+|----------------------------|----------------|
+| Yes                        | 60.61          |
+| No                         | 60.08          |
+
+Finding: A very small positive difference (~0.5 points). Extracurriculars have minimal impact on exam scores.
+
+5.4 Internet Access
+
+| Internet Access | Avg Exam Score |
+|----------------|----------------|
+| Yes            | 60.41          |
+| No             | 60.29          |
+
+Finding: Almost no difference. Having internet access alone does not boost scores.
+
+5.5 Motivation Level (combined with Resources)
+
+From the cross‑tabulation:
+
+| Access to Resources | Motivation Level | Avg Exam Score |
+|---------------------|------------------|----------------|
+| High                | High             | 65.41          |
+| High                | Medium           | 62.61          |
+| High                | Low              | 59.40          |
+| Low                 | High             | 61.64          |
+| Low                 | Medium           | 58.22          |
+| Low                 | Low              | 56.03          |
+
+Key insight:
+- High resources + high motivation → highest average score (65.4).
+- Low resources + low motivation → lowest average score (56.0).
+- Motivation can partially compensate for low resources (e.g., low resources + high motivation = 61.6, which is better than high resources + low motivation = 59.4).
+
+
+6. Tutoring Sessions – Detailed Analysis
+
+- Correlation with exam score: 0.207 (weak positive).
+- Comparison of groups:
+
+| Tutoring Sessions | Count | Mean Exam Score |
+|-------------------|-------|-----------------|
+| 0–2 sessions      | 5,375 | 59.66           |
+| 3+ sessions       | 1,232 | 63.64           |
+
+Finding: Students with 3 or more tutoring sessions score on average 4 points higher than those with fewer sessions.
+
+
+7. Study Hours & Sleep Hours for High‑Study Groups
+
+- Students with >30 study hours: 369 rows. Their average exam score is not shown but from earlier scatter, it tends to be above 70.
+- Students with >39 study hours: 9 rows. Their scores range from 63 to 83, with varied sleep hours (4.5 – 8.7). This suggests that extreme study hours without good sleep or motivation do not guarantee top scores.
+
+
+8. Previous Scores – The Dominant Predictor
+
+Correlation = 0.653. This is much higher than any other feature.
+
+To visualise: Students with Previous_Scores in the top band (85–100) likely have final scores also in the 80s. This indicates that prior academic achievement is the strongest indicator of future performance.
+
+
+9. Overall Conclusions
+
+Based on the analyses using NumPy, Pandas, and SQL, the following factors affect exam scores (in order of importance):
+
+1. Previous_Scores (strongest predictor – consistency matters most)
+2. Hours_Studied (moderate effect – more study helps)
+3. Access_to_Resources (high resources → higher scores)
+4. Tutoring_Sessions (3+ sessions improve scores by ~4 points)
+5. Motivation_Level (especially when combined with resources)
+6. Attendance (weak positive effect)
+
+Factors with little to no impact:
+- Parental Involvement (as measured)
+- Extracurricular Activities
+- Internet Access
+- Sleep Hours
+
+
+10. Recommendations
+
+- Students should focus on building strong previous knowledge and increasing study hours to improve exam scores.
+- Schools should provide better resources (e.g., learning materials, tutoring) to help students, especially those with low motivation.
+- Tutoring programs should encourage at least 3 sessions for noticeable gains.
+- Sleep, extracurriculars, and internet access are not key drivers; effort might be better spent elsewhere.
+
+
+Report prepared by: MD. RAFID HASAN
+Date: 3/4/26
